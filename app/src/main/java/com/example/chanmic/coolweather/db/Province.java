@@ -2,7 +2,7 @@ package com.example.chanmic.coolweather.db;
 
 import org.litepal.crud.DataSupport;
 
-class Province extends DataSupport {
+public class Province extends DataSupport {
 
     private int id;
 
