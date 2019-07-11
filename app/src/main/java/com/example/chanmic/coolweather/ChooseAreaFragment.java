@@ -1,6 +1,7 @@
 package com.example.chanmic.coolweather;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -128,6 +129,17 @@ public class ChooseAreaFragment extends Fragment {
                     queryCountries();
 
                 }
+//      从省市县列表界面跳转到天气界面，在此处判断
+                else if(currentLevel == LEVEL_COUNTRY){
+
+                    String weatherId = countyList.get(position).getWeatherId();
+                    Intent intent = new Intent(getActivity(),WeatherActivity.class);
+                    intent.putExtra("weather_id",weatherId);
+                    startActivity(intent);
+                    getActivity().finish();
+
+                }
+
             }
         });
 
@@ -255,6 +267,10 @@ public class ChooseAreaFragment extends Fragment {
                             }else if("county".equals(type)){
                                 queryCountries();
                             }
+
+
+
+
                         }
                     });
                 }
