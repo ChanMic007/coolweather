@@ -1,5 +1,6 @@
 package com.example.chanmic.coolweather;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.chanmic.coolweather.gson.Forecast;
 import com.example.chanmic.coolweather.gson.Weather;
+import com.example.chanmic.coolweather.service.AutoUpdateService;
 import com.example.chanmic.coolweather.util.HttpUtil;
 import com.example.chanmic.coolweather.util.Utility;
 
@@ -174,6 +176,15 @@ public class WeatherActivity extends AppCompatActivity {
 *
 * */
     public void showWeatherInfo(Weather weather){
+//  一旦选中某个城市之后， AutoUpdateService 就会开启自动更新时间服务
+        if(weather != null && "ok".equals(weather.status)){
+            //...
+            Intent intent = new Intent(this,AutoUpdateService.class);
+            startService(intent);
+        } else {
+            Toast.makeText(WeatherActivity.this,"获取天气失败",Toast.LENGTH_SHORT).show();
+        }
+
 
         String cityName = weather.basic.cityName;
         String updateTime = weather.basic.update.updateTime.split(" ")[1];
@@ -213,6 +224,10 @@ public class WeatherActivity extends AppCompatActivity {
         carWashText.setText(carWash);
         sportText.setText(sport);
         weatherLayout.setVisibility(View.VISIBLE);
+
+
+
+
 
     }
 
